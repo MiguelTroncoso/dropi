@@ -1,0 +1,15 @@
+{
+  "name": "dropi-shopify-chile",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo para lanzar y validar un negocio de dropshipping COD en Chile con Dropi + Shopify + Facebook Ads.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "calc-margen": "npm run calc-margen --workspace=packages/calc-margen --"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
