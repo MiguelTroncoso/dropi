@@ -6,11 +6,12 @@
   "costoDropi": 7500,
   "stockDisponible": 994,
   "precioVentaObjetivo": 29990,
-  "cpaObjetivoMaximo": 7000,
+  "cpaObjetivoMaximo": 5000,
+  "_cpaObjetivoMaximo_advertencia": "El operador definió originalmente 'bajo $7.000' como objetivo, pero con el envío real de Blue Express ($4.500) ese valor resultó ser casi exactamente el CPA de equilibrio (breakeven ~$6.593), no un CPA seguro. Se bajó a 5.000 para dejar margen real (ver docs/calculadora-margen.md).",
   "supuestosLogisticos": {
-    "_advertencia": "ESTIMADOS iniciales para poder correr la calculadora antes de tener datos reales. Reemplaza estos 3 valores por los de tu panel Dropi (Mis Productos > este producto > tarifas de envío) y por tu tasa de rechazo real una vez tengas los primeros ~30-50 pedidos.",
-    "costoEnvio": 3990,
-    "costoEnvioDevolucion": 3990,
+    "_advertencia": "costoEnvio/costoEnvioDevolucion actualizados con la tabla real de tarifas Blue Express del panel Dropi (tier S, hasta 3kg / 20x20x30cm — a confirmar que el compresor efectivamente cae en ese tier y no en el tier M). Es un valor BLENDED entre Santiago ($2.600-3.650) y regiones ($4.500-5.500), ponderado hacia regiones porque la campaña es a nivel nacional. tasaRechazoEsperadaPct y comisionDropiPct siguen siendo estimados genéricos: reemplázalos por tu tasa real una vez tengas los primeros ~30-50 pedidos entregados.",
+    "costoEnvio": 4500,
+    "costoEnvioDevolucion": 4500,
     "tasaRechazoEsperadaPct": 30,
     "comisionDropiPct": 5
   },

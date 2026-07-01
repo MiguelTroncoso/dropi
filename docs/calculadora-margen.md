@@ -68,10 +68,10 @@ Datos del producto (`config/producto-actual.json`):
 |---|---|
 | Precio de venta | $29.990 |
 | Costo Dropi | $7.500 |
-| Envío (estimado, **ajustar con tu panel Dropi**) | $3.990 |
-| Envío de devolución (estimado) | $3.990 |
+| Envío (real, tabla Blue Express del panel Dropi, tier S — blended Santiago/regiones) | $4.500 |
+| Envío de devolución (mismo tier) | $4.500 |
 | Comisión Dropi (estimado, ~5% reportado) | 5% |
-| Tasa de rechazo (estimado, punto de partida típico COD) | 30% |
+| Tasa de rechazo (estimado, punto de partida típico COD — **aún sin confirmar con datos reales**) | 30% |
 | CPA objetivo del operador | bajo $7.000 |
 
 Corriendo la calculadora con estos valores (`npm run calc-margen --`, sin
@@ -79,66 +79,66 @@ flags, usa el config por defecto):
 
 ```
 Regla simple (precio ≥ 2.5-3x costo base = producto + envío):
-  Múltiplo actual: 2.61x (mínimo 2.5x, óptimo 3x)
-  ✅ Cumple mínimo 2.5x
+  Múltiplo actual: 2.50x (mínimo 2.5x, óptimo 3x)
+  ❌ Cumple mínimo 2.5x
   ❌ Cumple óptimo 3x
 
 Análisis COD real (ponderado por probabilidad de entrega):
   Prob. de entrega / rechazo:     70.0% / 30.0%
   Ingreso esperado por pedido creado:  $19.943
-  Costo logístico esperado por pedido: $12.687
-  Margen esperado ANTES de ads:        $7.256
-  Margen esperado DESPUÉS del CPA:     $256 (0.9% del precio de venta)
-  CPA máximo viable (breakeven):       $7.256
+  Costo logístico esperado por pedido: $13.350
+  Margen esperado ANTES de ads:        $6.593
+  Margen esperado DESPUÉS del CPA:     $-407 (-1.4% del precio de venta)
+  CPA máximo viable (breakeven):       $6.593
 
-Veredicto: ⚠️ RIESGOSO
+Veredicto: ❌ NO VIABLE
 ```
 
 ### Lectura del resultado
 
-- El producto **sí cumple** la regla simple mínima de 2,5x (2,61x), pero
-  **no llega** al 3x óptimo.
-- El dato importante: con 30% de rechazo, el **CPA máximo viable
-  (breakeven) es ~$7.256**. El CPA objetivo declarado por el operador
-  ("bajo $7.000") está *justo debajo* de ese techo — es decir, el objetivo
-  de CPA es correcto en dirección, pero deja un colchón mínimo (~$256 por
-  pedido creado, menos del 1% del precio de venta). Cualquiera de estos
-  eventos lo vuelve **NO VIABLE**:
-  - La tasa de rechazo real resulta mayor a 30% (muy posible en el primer
-    tramo de campaña, antes de optimizar públicos/creativos).
-  - El envío real (una vez confirmado en el panel Dropi) es más caro que
-    el estimado de $3.990.
-  - El CPA real supera $7.000 en la práctica (habitual las primeras 48-72h
-    de una campaña nueva, ver `playbook/02-campana-facebook-paso-a-paso.md`
-    en Fase 1).
+- Con el envío real de Blue Express ($4.500 blended, más alto que el
+  estimado inicial de $3.990), el compresor **ya no pasa ni la regla
+  simple de 2,5x** al CPA objetivo declarado de $7.000.
+- El dato clave: con 30% de rechazo, el **CPA máximo viable (breakeven) es
+  ~$6.593** — por debajo del "CPA objetivo: bajo $7.000" original. Es
+  decir, ese objetivo declarado ya no alcanza con el envío real; hay que
+  apuntar más bajo.
+- Comparado contra otros candidatos evaluados (masajeador de cuello/
+  hombros, secador de ropa portátil, irrigador bucal, cremas, etc. — todos
+  descartados por costo alto vs. precio de mercado real, o ticket
+  demasiado bajo), el compresor sigue siendo el mejor punto de partida: es
+  el que tiene el envío más barato de todos (tier S en vez de M), aunque
+  igual requiere CPA controlado.
 
-- Si la tasa de rechazo baja a 20% (con mejor calificación de leads, script
-  de confirmación telefónica, etc.) y el CPA baja a $5.000, el mismo
-  producto pasa a **VIABLE** con ~18% de margen sobre precio de venta:
+- Si el CPA baja a $5.000 y la tasa de rechazo baja a 20% (con mejor
+  calificación de leads, confirmación telefónica, etc.), el mismo producto
+  pasa a **VIABLE** con margen saludable:
 
 ```
 npm run calc-margen -- --cpa 5000 --rechazo 20
-# → Margen esperado DESPUÉS del CPA: $5.504 (18.4%) — VIABLE
+# → Margen esperado DESPUÉS del CPA: $4.892 (16.3%) — VIABLE
 ```
 
-**Conclusión accionable:** el compresor es viable para lanzar una prueba,
-pero **con margen de maniobra casi nulo si el CPA se acerca a $7.000 o el
-rechazo supera 30%**. Prioridades antes/durante el lanzamiento:
+**Conclusión accionable:** el compresor solo es viable si el CPA se
+mantiene bien por debajo de $7.000 (idealmente ≤$5.000) y la tasa de
+rechazo se controla cerca de 20-25%. Prioridades antes/durante el
+lanzamiento:
 
-1. Confirmar el costo de envío real en el panel Dropi para este producto
-   específico (el $3.990 es una estimación) y volver a correr la
-   calculadora con el valor real.
-2. Apuntar a un CPA bien por debajo de $7.000 en las primeras
-   optimizaciones, no usarlo como "meta cómoda".
-3. Vigilar la tasa de rechazo desde el primer lote de pedidos —si supera
-   30% de forma sostenida, revisar guion de confirmación de pedido /
-   calidad del tráfico antes de seguir escalando presupuesto.
+1. Confirmar que el compresor efectivamente cae en el tier de envío S de
+   Blue Express (≤3kg, 20x20x30cm) y no en el tier M — si es M, el envío
+   real es más alto todavía y hay que volver a correr el número.
+2. Apuntar a un CPA bien por debajo de $7.000 (idealmente $5.000 o menos)
+   en las primeras optimizaciones, no usar $7.000 como "meta cómoda" — a
+   ese CPA el producto pierde plata.
+3. Vigilar la tasa de rechazo desde el primer lote de pedidos —si se
+   mantiene sobre 30%, revisar guion de confirmación de pedido / calidad
+   del tráfico antes de seguir escalando presupuesto.
 
 ## Cómo correrla con tus propios números
 
 ```bash
 npm install   # una sola vez, desde la raíz del monorepo
-npm run calc-margen -- --precio 29990 --costo 7500 --envio 3990 --rechazo 30 --cpa 6500
+npm run calc-margen -- --precio 29990 --costo 7500 --envio 4500 --rechazo 30 --cpa 5000
 ```
 
 Ver todos los flags: `npm run calc-margen -- --help`.

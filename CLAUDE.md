@@ -55,8 +55,21 @@ y `packages/calc-margen`) modela esto explícitamente.
 | Costo Dropi (costo base) | $7.500 CLP |
 | Stock disponible | 994 unidades |
 | Precio de venta objetivo | $29.990 CLP |
-| CPA objetivo | Bajo $7.000 CLP |
+| CPA objetivo original (operador) | Bajo $7.000 CLP |
+| CPA máximo viable real (calculadora, envío Blue Express real) | ~$6.593 CLP — apuntar a ≤$5.000 para tener margen de verdad |
 | Canal de validación | Facebook Ads, pago contra entrega (COD) |
+
+El CPA objetivo original de "bajo $7.000" resultó ser, en la práctica, casi
+exactamente el techo de equilibrio (breakeven) una vez metida la tarifa
+real de envío de Blue Express — no un CPA con margen cómodo. Se evaluaron
+6+ productos alternativos del catálogo Dropi (masajeador cuello/hombros,
+secador de ropa portátil, irrigador bucal, cremas, etc.) y ninguno superó
+al compresor: o el costo Dropi era muy alto respecto al precio de mercado
+real, o el ticket era muy bajo para sostener el envío + CPA. Ver
+`docs/calculadora-margen.md` para el detalle. Conclusión: el compresor
+sigue siendo el mejor candidato, pero solo es viable con CPA controlado
+(idealmente ≤$5.000) y tasa de rechazo cerca de 20-25%, no al límite de
+$7.000.
 
 Este dato vive parametrizado en [`config/producto-actual.json`](./config/producto-actual.json)
 para poder cambiar de producto sin tocar código. Cualquier script o paquete

@@ -54,8 +54,9 @@ npm run calc-margen -- --cpa <tu_cpa_actual> --rechazo <tu_tasa_de_rechazo_real>
 
 Ver [`docs/calculadora-margen.md`](../docs/calculadora-margen.md) para el
 detalle completo de esta cuenta. El ejemplo ya corrido ahí muestra que con
-30% de rechazo, un CPA de $7.000 deja un margen casi nulo — es decir, el
-"CPA objetivo" declarado es un techo, no una meta cómoda.
+30% de rechazo y el envío real, un CPA de $7.000 ya pierde plata — el CPA
+objetivo real del producto activo es ≤$5.000, no $7.000 (ver
+`config/producto-actual.json`).
 
 ## Delivery rate (tasa de entrega) — la métrica que Meta no te muestra
 

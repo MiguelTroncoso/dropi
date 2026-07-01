@@ -18,9 +18,10 @@ Pausa la campaña/anuncio si se cumple **cualquiera** de estas, después de
 la fase de aprendizaje:
 
 1. **Gasto ≥ 3-4x el CPA objetivo con cero pedidos creados.** Con el CPA
-   objetivo de este proyecto (bajo $7.000), eso es gastar
-   ~$21.000-$28.000 sin un solo `Purchase`. Es una señal fuerte de que la
-   oferta/creativo/landing no está conectando, no solo mala suerte.
+   objetivo de este proyecto (≤$5.000, ver `config/producto-actual.json`),
+   eso es gastar ~$15.000-$20.000 sin un solo `Purchase`. Es una señal
+   fuerte de que la oferta/creativo/landing no está conectando, no solo
+   mala suerte.
 2. **CPA real sostenido (varios días, no un solo día malo) por encima del
    CPA máximo viable** que te da la calculadora de margen para tu tasa de
    rechazo actual (no el CPA objetivo genérico — el número real de tu

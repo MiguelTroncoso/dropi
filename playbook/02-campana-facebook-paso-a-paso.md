@@ -41,8 +41,11 @@ Regla práctica: **presupuesto diario ≥ 3-4 veces tu CPA objetivo**, para
 que en un día el algoritmo tenga margen de generar varias conversiones y
 aprender, no solo 0 o 1.
 
-Con el CPA objetivo de este proyecto (bajo $7.000, ver
-`config/producto-actual.json`), eso da un piso de **~$21.000-$28.000
+Con el CPA objetivo de este proyecto (≤$5.000, ver
+`config/producto-actual.json` — bajado desde el "bajo $7.000" original
+porque la calculadora de margen mostró que $7.000 era casi exactamente el
+techo de equilibrio con el envío real, no un CPA con margen, ver
+`docs/calculadora-margen.md`), eso da un piso de **~$15.000-$20.000
 CLP/día**. Si tu presupuesto real es más ajustado, es mejor partir con
 menos días de prueba pero el presupuesto diario mínimo, que estirar un
 presupuesto chico en más ad sets o más días a un ritmo que nunca junta
