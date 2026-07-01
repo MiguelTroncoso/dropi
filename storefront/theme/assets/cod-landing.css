@@ -91,6 +91,35 @@
   flex-shrink: 0;
 }
 
+.cod-galeria {
+  margin-top: 32px;
+}
+
+.cod-galeria__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.cod-galeria__item {
+  margin: 0;
+}
+
+.cod-galeria__item img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--cod-radio);
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+.cod-galeria__item figcaption {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+  margin-top: 4px;
+}
+
 .cod-prueba-social {
   margin-top: 32px;
   padding: 16px;

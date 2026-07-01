@@ -62,6 +62,31 @@
   </section>
   {% endif %}
 
+  {% comment %} ---------- GALERÍA DE FOTOS ---------- {% endcomment %}
+  {% assign fotos = section.blocks | where: "type", "foto" %}
+  {% if fotos.size > 0 %}
+  <section class="cod-galeria">
+    <div class="cod-galeria__grid">
+      {% for block in fotos %}
+        <figure class="cod-galeria__item" {{ block.shopify_attributes }}>
+          {% if block.settings.imagen %}
+            <img
+              src="{{ block.settings.imagen | image_url: width: 800 }}"
+              alt="{{ block.settings.descripcion | default: section.settings.producto.title | escape }}"
+              loading="lazy"
+              width="{{ block.settings.imagen.width }}"
+              height="{{ block.settings.imagen.height }}"
+            />
+          {% endif %}
+          {% if block.settings.descripcion != blank %}
+            <figcaption>{{ block.settings.descripcion }}</figcaption>
+          {% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   {% comment %} ---------- PRUEBA SOCIAL ---------- {% endcomment %}
   {% assign testimonios = section.blocks | where: "type", "testimonio" %}
   {% if section.settings.prueba_social_texto != blank or testimonios.size > 0 %}
@@ -220,6 +245,14 @@
       "settings": [
         { "type": "textarea", "id": "texto", "label": "Texto del testimonio" },
         { "type": "text", "id": "autor", "label": "Autor (ej: Camila, Providencia)" }
+      ]
+    },
+    {
+      "type": "foto",
+      "name": "Foto de galería",
+      "settings": [
+        { "type": "image_picker", "id": "imagen", "label": "Foto (usa fotos reales del producto, no de stock)" },
+        { "type": "text", "id": "descripcion", "label": "Descripción breve (opcional, aparece como pie de foto y como alt text)" }
       ]
     }
   ],
