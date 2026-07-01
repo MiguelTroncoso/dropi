@@ -92,6 +92,26 @@ docker run --env-file .env -p 3000:3000 dropi-cod-server
 
 ## 4. Desplegar en tu VPS junto a n8n
 
+**Opción rápida — script de despliegue:** conéctate tú por SSH a tu VPS
+(nunca compartas la contraseña/clave root con nadie, ni la pegues en un
+chat) y corre:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/storefront/server/deploy.sh -o deploy.sh
+chmod +x deploy.sh
+./deploy.sh https://github.com/TU_USUARIO/TU_REPO.git
+```
+
+(Ajusta la URL al repo real). La primera vez el script va a crear
+`storefront/server/.env` desde el ejemplo y detenerse para que lo
+completes con tus credenciales reales — edítalo (`nano .env`) y vuelve a
+correr `./deploy.sh` para que levante el contenedor. Las veces siguientes
+(para actualizar tras un cambio de código) basta con volver a correr
+`./deploy.sh` sin argumentos: hace `git pull`, reconstruye la imagen y
+reemplaza el contenedor sin dejar dos corriendo a la vez.
+
+**Opción manual — agregar a tu `docker-compose.yml`:**
+
 Agrega un servicio más al `docker-compose.yml` que ya usas para n8n (no
 reemplaces tu archivo, solo agrega este bloque):
 
