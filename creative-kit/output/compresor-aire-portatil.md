@@ -6,6 +6,53 @@ producto, actualiza ese archivo y vuelve a correr
 mano (aunque después de generarlo, ajústalo con tu criterio y lo que veas
 que funciona).
 
+## Ficha de producto para Shopify
+
+**Título del producto:**
+
+```
+Compresor Digital Inflador de Aire
+```
+
+**Descripción (HTML — pégalo con el botón "<>" del editor de Shopify, o pega el texto y aplica el formato a mano):**
+
+```html
+<p>Quedarte con un neumático sin aire (en el auto, la bici o la moto) o sin cómo inflar un colchón, piscina o pelota, sin tener que ir a una bencinera o esperar que alguien te ayude.</p>
+<p><strong>Con el Compresor Digital Inflador de Aire lo resuelves en minutos, sin salir de tu casa.</strong></p>
+
+<h3>¿Por qué te va a servir?</h3>
+<ul>
+<li>Infla en minutos: neumáticos de auto y moto, bicicleta, pelotas, colchones y piscinas inflables</li>
+<li>Pantalla digital: eliges la presión exacta (PSI) y se detiene solo al llegar</li>
+<li>Portátil y recargable: no necesita estar enchufado a la pared</li>
+<li>Incluye cable para el encendedor del auto: úsalo en el camino, no solo en la casa</li>
+<li>Compacto: cabe en la guantera, el bolso del auto o un velador</li>
+</ul>
+
+<h3>Fácil de usar</h3>
+<p>Apagado automático al llegar a la presión programada: no hay que estar mirando el manómetro. Sirve para auto, moto, bici y juguetes/inflables con los adaptadores incluidos.</p>
+
+<h3>Compra con confianza</h3>
+<p>✅ Más de 900 unidades del lote actual ya disponibles en stock local en Chile<br>
+✅ Garantía del vendedor + derecho a retracto de 10 días (ver política de la tienda)<br>
+💵 <strong>Pago contra entrega:</strong> revisas tu pedido y pagas cuando te llega a la puerta de tu casa</p>
+```
+
+**Otros campos del formulario "Agregar producto" en Shopify:**
+
+| Campo | Valor sugerido |
+|---|---|
+| Precio | $29.990 |
+| Costo por artículo | $7.500 (uso interno, no lo ve el cliente) |
+| Cantidad disponible | 994 (o el stock real actual en tu panel Dropi) |
+| Tipo de producto | Herramientas para el hogar y el auto |
+| Categoría del producto (Shopify) | Elige la más cercana en el buscador de categorías de Shopify |
+| SKU (opcional) | `COMPRESOR_AIRE_PORTATIL` |
+
+**Importante — no rellenar "Precio de comparación" (precio tachado) con un número inventado.** Ese campo se usa para mostrar un descuento real; poner un "antes" falso es información engañosa y puede chocar con la Ley del Consumidor (ver `docs/checklist-legal-chile.md`). Solo úsalo si de verdad vas a vender con un descuento genuino sobre un precio anterior real.
+
+**Fotos:** usa fotos reales del producto (las que trae la ficha de Dropi u otras que tengas), no imágenes genéricas de stock — en el texto alternativo (alt text) de cada imagen describe el producto en una frase corta, ayuda al SEO y a la accesibilidad.
+
 ## 5 ángulos de venta
 
 ### 1. El problema en el peor momento

@@ -310,6 +310,62 @@ function generarSpecsImagenes(p: ProductoConfig): string {
 }
 
 // ---------------------------------------------------------------------------
+// Ficha de producto para Shopify (título + descripción HTML lista para pegar)
+// ---------------------------------------------------------------------------
+
+function generarFichaProductoShopify(p: ProductoConfig): string {
+  const m = p.marketing;
+  const beneficiosHtml = m.beneficios
+    .map((b) => `<li>${b}</li>`)
+    .join("\n");
+
+  const descripcionHtml = `<p>${m.problemaQueResuelve}</p>
+<p><strong>Con el ${p.nombre} lo resuelves en minutos, sin salir de tu casa.</strong></p>
+
+<h3>¿Por qué te va a servir?</h3>
+<ul>
+${beneficiosHtml}
+</ul>
+
+<h3>Fácil de usar</h3>
+<p>${diferenciador(p, 0)}.${diferenciador(p, 1) ? ` ${diferenciador(p, 1)}.` : ""}</p>
+
+<h3>Compra con confianza</h3>
+<p>✅ ${m.pruebaSocial}<br>
+✅ ${m.garantia}<br>
+💵 <strong>Pago contra entrega:</strong> revisas tu pedido y pagas cuando te llega a la puerta de tu casa</p>`;
+
+  return `
+**Título del producto:**
+
+\`\`\`
+${p.nombre}
+\`\`\`
+
+**Descripción (HTML — pégalo con el botón "<>" del editor de Shopify, o pega el texto y aplica el formato a mano):**
+
+\`\`\`html
+${descripcionHtml}
+\`\`\`
+
+**Otros campos del formulario "Agregar producto" en Shopify:**
+
+| Campo | Valor sugerido |
+|---|---|
+| Precio | ${formatCLP(p.precioVentaObjetivo)} |
+| Costo por artículo | ${formatCLP(p.costoDropi)} (uso interno, no lo ve el cliente) |
+| Cantidad disponible | ${p.stockDisponible} (o el stock real actual en tu panel Dropi) |
+| Tipo de producto | ${m.categoria} |
+| Categoría del producto (Shopify) | Elige la más cercana en el buscador de categorías de Shopify |
+| SKU (opcional) | \`${p.id.toUpperCase().replace(/-/g, "_")}\` |
+
+**Importante — no rellenar "Precio de comparación" (precio tachado) con un número inventado.** Ese campo se usa para mostrar un descuento real; poner un "antes" falso es información engañosa y puede chocar con la Ley del Consumidor (ver \`docs/checklist-legal-chile.md\`). Solo úsalo si de verdad vas a vender con un descuento genuino sobre un precio anterior real.
+
+**Fotos:** usa fotos reales del producto (las que trae la ficha de Dropi u otras que tengas), no imágenes genéricas de stock — en el texto alternativo (alt text) de cada imagen describe el producto en una frase corta, ayuda al SEO y a la accesibilidad.
+`.trim();
+}
+
+// ---------------------------------------------------------------------------
 // Brief para pedir UGC
 // ---------------------------------------------------------------------------
 
@@ -397,6 +453,10 @@ producto, actualiza ese archivo y vuelve a correr
 \`npm run generar\` en \`creative-kit/\` — no hace falta tocar este texto a
 mano (aunque después de generarlo, ajústalo con tu criterio y lo que veas
 que funciona).
+
+## Ficha de producto para Shopify
+
+${generarFichaProductoShopify(p)}
 
 ## 5 ángulos de venta
 
