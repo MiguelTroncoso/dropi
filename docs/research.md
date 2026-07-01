@@ -59,19 +59,42 @@ Setup (resumen, se detalla con capturas y pasos exactos en
   mirar directamente el panel/API de Dropi, no asumir que el estado de
   Shopify ya lo refleja.
 
+**Corrección (encontrado directamente en la configuración de Dropify, no
+documentado públicamente):** Dropify sí tiene una función para esto —
+**Configuración → "Sincroniza los estados entre Shopify y Dropi"** — que
+deja mapear cada estado de Dropi (`ENTREGADO`, `DEVOLUCION`, `DEVOLUCION EN
+TRANSITO`, `NOVEDAD SOLUCIONADA`, `PREPARADO PARA TRANSPORTADORA`,
+`INDEMNIZADA POR DROPI`, `ENTREGADO A TRANSPORTADORA`, etc.) a un estado de
+la orden en Shopify. Mapeando al menos `ENTREGADO → Fulfilled` (y
+`DEVOLUCION → Cancelado`/el equivalente que corresponda), el estado de
+cumplimiento de la orden en Shopify **sí puede ser una fuente confiable**
+de si un pedido se entregó o se rechazó — dentro del mismo ciclo de
+sincronización de ~5-10 min de Dropify. Esto actualiza lo que se pensaba
+al investigar (que había que ir siempre al panel/API de Dropi): configurado
+este mapeo, se puede calcular el **delivery rate** (ver
+`playbook/03-lectura-de-metricas.md`) filtrando órdenes por estado de
+cumplimiento directo en Shopify, sin exportar CSV a mano cada vez.
+
 **Conclusión práctica para este proyecto:**
 
 - Para Fase 1 (lanzar y vender), **Dropify es suficiente**: conecta pedidos
   e inventario sin trabajo de desarrollo.
-- Para Fase 2 (ROAS efectivo real, dashboard), **no confiar en el estado de
-  Shopify como fuente de verdad de entrega**. Hay que ir a la fuente: panel
-  de Dropi (o su API de integraciones, pidiendo acceso formalmente) para
-  saber qué pedidos se entregaron y cobraron de verdad.
+- Configura el mapeo de estados (`ENTREGADO → Fulfilled`, `DEVOLUCION →
+  Cancelado`) desde el día 1 del lanzamiento — no cuesta nada configurarlo
+  y ahorra tener que ir al panel de Dropi cada vez que se quiere revisar
+  delivery rate o ROAS efectivo.
+- Para Fase 2 (automatización completa del cruce ROAS efectivo/dashboard),
+  este mapeo probablemente sea suficiente como fuente de datos vía la API
+  de Shopify (sin necesidad de pedir acceso a la API de integraciones de
+  Dropi) — a confirmar cuando se aborde esa fase, pero es la opción más
+  simple a explorar primero.
 
-### Plan B: CSV del panel de Dropi
+### Plan C: CSV del panel de Dropi
 
-Si en Fase 2 pedir acceso a la API de integraciones toma tiempo o no se
-aprueba a tiempo, el plan B (siempre disponible, sin depender de nadie) es:
+Si el mapeo de estados de Dropify (arriba) fallara o quedara desactualizado
+en algún período, o si en Fase 2 pedir acceso a la API de integraciones
+toma tiempo, el plan de respaldo (siempre disponible, sin depender de
+nadie) es:
 
 1. Exportar periódicamente el CSV de pedidos desde el panel web de Dropi
    (incluye estado de cada guía: creado, en tránsito, entregado, devuelto,

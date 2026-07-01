@@ -60,13 +60,23 @@ objetivo real del producto activo es ≤$5.000, no $7.000 (ver
 
 ## Delivery rate (tasa de entrega) — la métrica que Meta no te muestra
 
-Es el % de pedidos creados que Dropi efectivamente entrega y cobra. Se
-calcula desde el panel de Dropi (o el CSV exportado, ver
-`docs/research.md`), no desde Meta:
+Es el % de pedidos creados que Dropi efectivamente entrega y cobra. No se
+calcula desde Meta:
 
 ```
 delivery rate = pedidos entregados / pedidos creados
 ```
+
+**Forma más simple de obtenerlo:** en Dropify, configura
+**Configuración → "Sincroniza los estados entre Shopify y Dropi"**,
+mapeando `ENTREGADO → Fulfilled` y `DEVOLUCION → Cancelado` (ver
+`docs/research.md`). Con eso configurado, el estado de cumplimiento de la
+orden en Shopify refleja el estado real de Dropi (con el mismo retraso de
+~5-10 min del sync normal), y puedes calcular el delivery rate filtrando
+órdenes en el Admin de Shopify por estado de cumplimiento, sin ir al panel
+de Dropi ni exportar CSV cada vez. El CSV del panel de Dropi queda como
+respaldo si el mapeo falla o para hacer un cruce más fino de una duda
+puntual.
 
 Referencia orientativa para COD en Chile: **60-75%** suele considerarse un
 rango razonable/saludable; por debajo de **50%** sostenido es señal de
