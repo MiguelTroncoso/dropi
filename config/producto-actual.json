@@ -14,5 +14,33 @@
     "tasaRechazoEsperadaPct": 30,
     "comisionDropiPct": 5
   },
+  "shopify": {
+    "_advertencia": "PENDIENTE: pega aquí el Variant ID una vez que crees el producto en Shopify. Ver storefront/README.md para saber exactamente dónde encontrarlo.",
+    "variantId": "PEGAR_VARIANT_ID_AQUI"
+  },
+  "marketing": {
+    "categoria": "Herramientas para el hogar y el auto",
+    "problemaQueResuelve": "Quedarte con un neumático sin aire (en el auto, la bici o la moto) o sin cómo inflar un colchón, piscina o pelota, sin tener que ir a una bencinera o esperar que alguien te ayude.",
+    "publicoObjetivo": "Dueños de auto o moto, familias con niños (piscinas y juguetes inflables), ciclistas, y personas que acampan o salen de road trip.",
+    "beneficios": [
+      "Infla en minutos: neumáticos de auto y moto, bicicleta, pelotas, colchones y piscinas inflables",
+      "Pantalla digital: eliges la presión exacta (PSI) y se detiene solo al llegar",
+      "Portátil y recargable: no necesita estar enchufado a la pared",
+      "Incluye cable para el encendedor del auto: úsalo en el camino, no solo en la casa",
+      "Compacto: cabe en la guantera, el bolso del auto o un velador"
+    ],
+    "diferenciadores": [
+      "Apagado automático al llegar a la presión programada: no hay que estar mirando el manómetro",
+      "Sirve para auto, moto, bici y juguetes/inflables con los adaptadores incluidos"
+    ],
+    "objecionesComunes": [
+      "¿Va a durar? -> Stock disponible en Chile, no es un pedido que viene del extranjero en barco",
+      "¿Es difícil de usar? -> Pantalla digital simple: eliges la presión con un botón y se detiene solo",
+      "¿Sirve para mi auto o moto? -> Incluye adaptadores para los tipos de válvula más comunes"
+    ],
+    "pruebaSocial": "Más de 900 unidades del lote actual ya disponibles en stock local en Chile",
+    "garantia": "Garantía del vendedor + derecho a retracto de 10 días (ver política de la tienda)",
+    "escasezSobria": "Quedan unidades del lote actual — sin repos garantizados a corto plazo"
+  },
   "notas": "Producto piloto (Producto #1) para validar el modelo Dropi + Shopify + Facebook Ads en Chile. Ver docs/calculadora-margen.md para el análisis de viabilidad."
 }

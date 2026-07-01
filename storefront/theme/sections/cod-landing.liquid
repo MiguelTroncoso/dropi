@@ -1,0 +1,238 @@
+{% comment %}
+  Landing de conversión COD, mobile-first, para UN producto.
+  Instalación y credenciales: ver storefront/README.md.
+{% endcomment %}
+
+{{ 'cod-landing.css' | asset_url | stylesheet_tag }}
+
+{% render 'cod-tracking-base',
+  meta_pixel_id: section.settings.meta_pixel_id,
+  ga4_measurement_id: section.settings.ga4_measurement_id
+%}
+
+<div class="cod-landing">
+
+  {% comment %} ---------- HERO ---------- {% endcomment %}
+  <section class="cod-hero">
+    {% if section.settings.hero_imagen %}
+      <img
+        class="cod-hero__imagen"
+        src="{{ section.settings.hero_imagen | image_url: width: 1200 }}"
+        alt="{{ section.settings.hero_titulo | escape }}"
+        loading="eager"
+        width="{{ section.settings.hero_imagen.width }}"
+        height="{{ section.settings.hero_imagen.height }}"
+      />
+    {% elsif section.settings.producto and section.settings.producto.featured_image %}
+      <img
+        class="cod-hero__imagen"
+        src="{{ section.settings.producto.featured_image | image_url: width: 1200 }}"
+        alt="{{ section.settings.producto.title | escape }}"
+        loading="eager"
+        width="{{ section.settings.producto.featured_image.width }}"
+        height="{{ section.settings.producto.featured_image.height }}"
+      />
+    {% endif %}
+
+    <h1 class="cod-hero__titulo">{{ section.settings.hero_titulo }}</h1>
+    <p class="cod-hero__subtitulo">{{ section.settings.hero_subtitulo }}</p>
+
+    {% if section.settings.producto %}
+      <p class="cod-hero__precio">{{ section.settings.producto.price | money }}</p>
+    {% endif %}
+
+    <a href="#cod-form" class="cod-hero__cta">
+      {{ section.settings.cta_texto | default: "Pedir ahora — pago contra entrega" }}
+    </a>
+    <p class="cod-hero__nota-cod">Pagas en la puerta de tu casa cuando te lo entregan.</p>
+  </section>
+
+  {% comment %} ---------- BENEFICIOS ---------- {% endcomment %}
+  {% assign beneficios = section.blocks | where: "type", "beneficio" %}
+  {% if beneficios.size > 0 %}
+  <section class="cod-beneficios">
+    <ul class="cod-beneficios__lista">
+      {% for block in beneficios %}
+        <li class="cod-beneficios__item" {{ block.shopify_attributes }}>
+          <span class="cod-beneficios__icono" aria-hidden="true">{{ block.settings.icono }}</span>
+          <span>{{ block.settings.texto }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- PRUEBA SOCIAL ---------- {% endcomment %}
+  {% assign testimonios = section.blocks | where: "type", "testimonio" %}
+  {% if section.settings.prueba_social_texto != blank or testimonios.size > 0 %}
+  <section class="cod-prueba-social">
+    {% if section.settings.prueba_social_texto != blank %}
+      <p class="cod-prueba-social__destacado">{{ section.settings.prueba_social_texto }}</p>
+    {% endif %}
+    {% if testimonios.size > 0 %}
+      <div class="cod-prueba-social__testimonios">
+        {% for block in testimonios %}
+          <blockquote class="cod-prueba-social__testimonio" {{ block.shopify_attributes }}>
+            <p>&ldquo;{{ block.settings.texto }}&rdquo;</p>
+            {% if block.settings.autor != blank %}
+              <cite>— {{ block.settings.autor }}</cite>
+            {% endif %}
+          </blockquote>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- ESCASEZ SOBRIA ---------- {% endcomment %}
+  {% if section.settings.escasez_texto != blank %}
+  <section class="cod-escasez">
+    <p>{{ section.settings.escasez_texto }}</p>
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- FORMULARIO COD ---------- {% endcomment %}
+  <section class="cod-form-seccion" id="cod-form">
+    <h2 class="cod-form-seccion__titulo">Completa tus datos para recibirlo</h2>
+    {% render 'cod-form',
+      endpoint: section.settings.endpoint_pedidos,
+      variant_id: section.settings.producto.selected_or_first_available_variant.id,
+      precio: section.settings.producto.price,
+      producto_nombre: section.settings.producto.title,
+      cta_texto: section.settings.cta_texto
+    %}
+  </section>
+
+  {% comment %} ---------- CONFIANZA / GARANTÍA / LEGAL ---------- {% endcomment %}
+  <section class="cod-confianza">
+    {% if section.settings.garantia_texto != blank %}
+      <p class="cod-confianza__item">🛡️ {{ section.settings.garantia_texto }}</p>
+    {% endif %}
+    <p class="cod-confianza__item">💵 Pago contra entrega: revisas tu pedido y pagas cuando llega.</p>
+    <p class="cod-confianza__item">↩️ Derecho a retracto de 10 días.</p>
+    <div class="cod-confianza__links">
+      {% if section.settings.politica_privacidad_url != blank %}
+        <a href="{{ section.settings.politica_privacidad_url }}">Política de Privacidad</a>
+      {% endif %}
+      {% if section.settings.politica_retracto_url != blank %}
+        <a href="{{ section.settings.politica_retracto_url }}">Cambios y Retracto</a>
+      {% endif %}
+    </div>
+  </section>
+
+</div>
+
+{{ 'cod-landing.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Landing COD",
+  "settings": [
+    {
+      "type": "product",
+      "id": "producto",
+      "label": "Producto"
+    },
+    {
+      "type": "text",
+      "id": "hero_titulo",
+      "label": "Título del hero",
+      "default": "¿Se quedó sin aire cuando más lo necesitabas?"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitulo",
+      "label": "Subtítulo del hero",
+      "default": "Infla neumáticos, colchones, piscinas y más en minutos, sin ir a la bencinera. Pantalla digital, se detiene solo."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_imagen",
+      "label": "Imagen del hero (opcional; si no eliges una, se usa la foto principal del producto)"
+    },
+    {
+      "type": "text",
+      "id": "cta_texto",
+      "label": "Texto del botón de compra",
+      "default": "Pedir ahora — pago contra entrega"
+    },
+    {
+      "type": "text",
+      "id": "prueba_social_texto",
+      "label": "Texto de prueba social",
+      "default": "Más de 900 unidades del lote actual ya disponibles en stock local en Chile"
+    },
+    {
+      "type": "text",
+      "id": "escasez_texto",
+      "label": "Texto de escasez (sobrio, sin inventar cuentas regresivas falsas)",
+      "default": "Quedan unidades del lote actual — sin repos garantizados a corto plazo"
+    },
+    {
+      "type": "text",
+      "id": "garantia_texto",
+      "label": "Texto de garantía",
+      "default": "Garantía del vendedor + derecho a retracto de 10 días"
+    },
+    {
+      "type": "url",
+      "id": "politica_privacidad_url",
+      "label": "Link a Política de Privacidad"
+    },
+    {
+      "type": "url",
+      "id": "politica_retracto_url",
+      "label": "Link a Política de Cambios y Retracto"
+    },
+    {
+      "type": "header",
+      "content": "Servidor de pedidos y tracking"
+    },
+    {
+      "type": "text",
+      "id": "endpoint_pedidos",
+      "label": "URL del servidor de pedidos (storefront/server)",
+      "info": "Ej: https://pedidos.tudominio.cl/pedidos — ver storefront/server/README.md"
+    },
+    {
+      "type": "text",
+      "id": "meta_pixel_id",
+      "label": "Meta Pixel ID"
+    },
+    {
+      "type": "text",
+      "id": "ga4_measurement_id",
+      "label": "GA4 Measurement ID (G-XXXXXXX)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Beneficio",
+      "settings": [
+        { "type": "text", "id": "icono", "label": "Ícono/emoji", "default": "✅" },
+        { "type": "text", "id": "texto", "label": "Texto del beneficio" }
+      ]
+    },
+    {
+      "type": "testimonio",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "textarea", "id": "texto", "label": "Texto del testimonio" },
+        { "type": "text", "id": "autor", "label": "Autor (ej: Camila, Providencia)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing COD",
+      "blocks": [
+        { "type": "beneficio", "settings": { "icono": "⚡", "texto": "Infla en minutos: auto, moto, bici, colchones y piscinas" } },
+        { "type": "beneficio", "settings": { "icono": "📟", "texto": "Pantalla digital: eliges la presión y se detiene solo" } },
+        { "type": "beneficio", "settings": { "icono": "🔋", "texto": "Portátil y recargable, no necesita estar enchufado" } },
+        { "type": "beneficio", "settings": { "icono": "🚗", "texto": "Incluye cable para el encendedor del auto" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

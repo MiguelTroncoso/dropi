@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "description": "Monorepo para lanzar y validar un negocio de dropshipping COD en Chile con Dropi + Shopify + Facebook Ads.",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "creative-kit"
   ],
   "scripts": {
-    "calc-margen": "npm run calc-margen --workspace=packages/calc-margen --"
+    "calc-margen": "npm run calc-margen --workspace=packages/calc-margen --",
+    "generar-creative-kit": "npm run generar --workspace=creative-kit --"
   },
   "engines": {
     "node": ">=20"

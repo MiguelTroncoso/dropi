@@ -1,0 +1,37 @@
+{% comment %}
+  Carga Meta Pixel (base code) y Google Analytics 4 (gtag.js) en el cliente.
+
+  IDs vienen de los settings de la sección que incluye este snippet
+  (storefront/theme/sections/cod-landing.liquid), para no hardcodear
+  credenciales en el tema.
+
+  Si quieres tracking en TODAS las páginas de la tienda (no solo esta
+  landing), mueve este snippet a theme.liquid (dentro de <head>) en vez de
+  incluirlo solo desde la sección. Ver storefront/README.md.
+{% endcomment %}
+
+{% if meta_pixel_id != blank %}
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '{{ meta_pixel_id }}');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none" alt=""
+    src="https://www.facebook.com/tr?id={{ meta_pixel_id }}&ev=PageView&noscript=1" />
+</noscript>
+{% endif %}
+
+{% if ga4_measurement_id != blank %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4_measurement_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ ga4_measurement_id }}');
+</script>
+{% endif %}

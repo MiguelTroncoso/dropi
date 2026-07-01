@@ -1,0 +1,21 @@
+{
+  "name": "dropi-cod-server",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Servidor que recibe el formulario COD de la landing, crea la orden en Shopify y dispara Meta Conversions API + GA4 Measurement Protocol server-side.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0"
+  }
+}

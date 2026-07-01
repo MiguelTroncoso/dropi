@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "cod-landing",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
