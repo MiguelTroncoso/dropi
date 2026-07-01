@@ -16,8 +16,8 @@
     "comisionDropiPct": 5
   },
   "shopify": {
-    "_advertencia": "PENDIENTE: pega aquí el Variant ID una vez que crees el producto en Shopify. Ver storefront/README.md para saber exactamente dónde encontrarlo.",
-    "variantId": "PEGAR_VARIANT_ID_AQUI"
+    "variantId": "43587629318257",
+    "productId": "7748529291377"
   },
   "marketing": {
     "categoria": "Herramientas para el hogar y el auto",
