@@ -97,12 +97,15 @@ docker run --env-file .env -p 3000:3000 dropi-cod-server
 chat) y corre:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/storefront/server/deploy.sh -o deploy.sh
+curl -fsSL https://raw.githubusercontent.com/MiguelTroncoso/dropi/claude/dropi-shopify-chile-setup-10qy3t/storefront/server/deploy.sh -o deploy.sh
 chmod +x deploy.sh
-./deploy.sh https://github.com/TU_USUARIO/TU_REPO.git
+./deploy.sh https://github.com/MiguelTroncoso/dropi.git
 ```
 
-(Ajusta la URL al repo real). La primera vez el script va a crear
+(El repo todavía no tiene rama `main` — todo el trabajo vive en la rama
+`claude/dropi-shopify-chile-setup-10qy3t`, por eso la URL de arriba apunta
+ahí. Si más adelante haces merge a `main`/`master`, actualiza esa URL del
+`curl` para que apunte a esa rama). La primera vez el script va a crear
 `storefront/server/.env` desde el ejemplo y detenerse para que lo
 completes con tus credenciales reales — edítalo (`nano .env`) y vuelve a
 correr `./deploy.sh` para que levante el contenedor. Las veces siguientes

@@ -2,7 +2,7 @@
 # Despliega dropi-cod-server en este servidor (VPS) con Docker.
 #
 # Uso (corre esto TÚ, por SSH, en tu VPS — no lo corras en tu máquina local):
-#   ./deploy.sh https://github.com/tu-usuario/dropi.git
+#   ./deploy.sh https://github.com/MiguelTroncoso/dropi.git
 #
 # La primera vez, si no existe .env, el script se detiene y te avisa para
 # que lo completes (no continúa con un .env vacío, para no levantar el
