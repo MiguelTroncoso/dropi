@@ -344,3 +344,78 @@
 .cod-anim-resalte {
   animation: cod-resalte-seccion 1.2s ease;
 }
+
+/* Barra de compra fija (mobile) — aparece al bajar del hero y se oculta
+   mientras el formulario está a la vista, para no taparlo. Ver
+   inicializarBarraFija en assets/cod-landing.js. Solo mobile/tablet: en
+   escritorio el hero y su CTA ya están casi siempre visibles. */
+
+.cod-barra-fija {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid var(--cod-color-borde, #e5e5e5);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+}
+
+.cod-barra-fija--visible {
+  transform: translateY(0);
+}
+
+.cod-barra-fija__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cod-barra-fija__nombre {
+  font-size: 0.8rem;
+  color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cod-barra-fija__precio {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.cod-barra-fija__boton {
+  flex-shrink: 0;
+  background: var(--cod-color-acento, #d3212c);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 18px;
+  border-radius: var(--cod-radio, 10px);
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.cod-barra-fija__boton:hover,
+.cod-barra-fija__boton:focus {
+  background: var(--cod-color-acento-oscuro, #a91a23);
+}
+
+.cod-barra-fija__boton:active {
+  transform: scale(0.97);
+}
+
+@media (min-width: 768px) {
+  .cod-barra-fija {
+    display: none;
+  }
+}

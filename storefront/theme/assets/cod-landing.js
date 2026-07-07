@@ -72,30 +72,68 @@
     }, retrasoMs || 0);
   }
 
-  function inicializarBotonHero() {
-    var botonHero = document.querySelector(".cod-hero__cta");
-    if (!botonHero) return;
+  // Maneja tanto el CTA del hero como el botón de la barra de compra fija
+  // (mismo comportamiento: pulso + scroll suave al formulario + resalte).
+  function inicializarBotonesCompra() {
+    var botones = document.querySelectorAll(".cod-boton-compra");
+    if (!botones.length) return;
     var seccionForm = document.getElementById("cod-form");
     var yaDisparado = false;
 
-    botonHero.addEventListener("click", function (evento) {
-      animarPulso(botonHero);
+    Array.prototype.forEach.call(botones, function (boton) {
+      boton.addEventListener("click", function (evento) {
+        animarPulso(boton);
 
-      if (seccionForm) {
-        evento.preventDefault();
-        seccionForm.scrollIntoView({ behavior: "smooth", block: "start" });
-        resaltarSeccion(seccionForm, 450);
-      }
+        if (seccionForm) {
+          evento.preventDefault();
+          seccionForm.scrollIntoView({ behavior: "smooth", block: "start" });
+          resaltarSeccion(seccionForm, 450);
+        }
 
-      // Señal de "empezó a comprar": util para leer el embudo (ver
-      // playbook/03-lectura-de-metricas.md) ya que este flujo no usa el
-      // carrito nativo de Shopify y por lo tanto no hay evento AddToCart.
-      // Solo del lado del navegador (no crítico, no se respalda server-side).
-      if (yaDisparado) return;
-      yaDisparado = true;
-      if (window.fbq) window.fbq("track", "InitiateCheckout");
-      if (window.gtag) window.gtag("event", "begin_checkout");
+        // Señal de "empezó a comprar": util para leer el embudo (ver
+        // playbook/03-lectura-de-metricas.md) ya que este flujo no usa el
+        // carrito nativo de Shopify y por lo tanto no hay evento AddToCart.
+        // Solo del lado del navegador (no crítico, no se respalda server-side).
+        if (yaDisparado) return;
+        yaDisparado = true;
+        if (window.fbq) window.fbq("track", "InitiateCheckout");
+        if (window.gtag) window.gtag("event", "begin_checkout");
+      });
     });
+  }
+
+  // Muestra la barra de compra fija (mobile) mientras el CTA del hero no
+  // está a la vista y el formulario tampoco, para no taparlo.
+  function inicializarBarraFija() {
+    var barra = document.getElementById("cod-barra-fija");
+    var botonHero = document.querySelector(".cod-hero__cta");
+    var seccionForm = document.getElementById("cod-form");
+    if (!barra || !botonHero || !seccionForm || !window.IntersectionObserver) {
+      return;
+    }
+
+    var heroVisible = true;
+    var formVisible = false;
+
+    function actualizarVisibilidad() {
+      barra.classList.toggle(
+        "cod-barra-fija--visible",
+        !heroVisible && !formVisible
+      );
+    }
+
+    new IntersectionObserver(function (entradas) {
+      heroVisible = entradas[0].isIntersecting;
+      actualizarVisibilidad();
+    }).observe(botonHero);
+
+    new IntersectionObserver(
+      function (entradas) {
+        formVisible = entradas[0].isIntersecting;
+        actualizarVisibilidad();
+      },
+      { threshold: 0.15 }
+    ).observe(seccionForm);
   }
 
   function inicializarFormulario(form) {
@@ -204,7 +242,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    inicializarBotonHero();
+    inicializarBotonesCompra();
+    inicializarBarraFija();
     var form = document.getElementById("cod-form");
     if (form) inicializarFormulario(form);
   });

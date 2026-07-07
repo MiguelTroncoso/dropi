@@ -41,7 +41,7 @@
       <p class="cod-hero__precio">{{ section.settings.producto.price | money }}</p>
     {% endif %}
 
-    <a href="#cod-form" class="cod-hero__cta">
+    <a href="#cod-form" class="cod-hero__cta cod-boton-compra">
       {{ section.settings.cta_texto | default: "Pedir ahora — pago contra entrega" }}
     </a>
     <p class="cod-hero__nota-cod">Pagas en la puerta de tu casa cuando te lo entregan.</p>
@@ -146,6 +146,19 @@
   </section>
 
 </div>
+
+{% comment %} ---------- BARRA DE COMPRA FIJA (mobile) ---------- {% endcomment %}
+{% if section.settings.producto %}
+<div class="cod-barra-fija" id="cod-barra-fija">
+  <div class="cod-barra-fija__info">
+    <span class="cod-barra-fija__nombre">{{ section.settings.producto.title }}</span>
+    <span class="cod-barra-fija__precio">{{ section.settings.producto.price | money }}</span>
+  </div>
+  <a href="#cod-form" class="cod-barra-fija__boton cod-boton-compra">
+    {{ section.settings.cta_texto | default: "Pedir ahora" }}
+  </a>
+</div>
+{% endif %}
 
 {{ 'cod-landing.js' | asset_url | script_tag }}
 
