@@ -55,11 +55,38 @@
     elemento.setAttribute("data-tipo", tipo);
   }
 
+  // Feedback visual de que el clic "surtió efecto" (ver cod-landing.css,
+  // clases .cod-anim-pulso y .cod-anim-resalte).
+  function animarPulso(elemento) {
+    elemento.classList.remove("cod-anim-pulso");
+    void elemento.offsetWidth; // fuerza reflow para poder reiniciar la animación en clics seguidos
+    elemento.classList.add("cod-anim-pulso");
+  }
+
+  function resaltarSeccion(elemento, retrasoMs) {
+    setTimeout(function () {
+      elemento.classList.add("cod-anim-resalte");
+      setTimeout(function () {
+        elemento.classList.remove("cod-anim-resalte");
+      }, 1300);
+    }, retrasoMs || 0);
+  }
+
   function inicializarBotonHero() {
     var botonHero = document.querySelector(".cod-hero__cta");
     if (!botonHero) return;
+    var seccionForm = document.getElementById("cod-form");
     var yaDisparado = false;
-    botonHero.addEventListener("click", function () {
+
+    botonHero.addEventListener("click", function (evento) {
+      animarPulso(botonHero);
+
+      if (seccionForm) {
+        evento.preventDefault();
+        seccionForm.scrollIntoView({ behavior: "smooth", block: "start" });
+        resaltarSeccion(seccionForm, 450);
+      }
+
       // Señal de "empezó a comprar": util para leer el embudo (ver
       // playbook/03-lectura-de-metricas.md) ya que este flujo no usa el
       // carrito nativo de Shopify y por lo tanto no hay evento AddToCart.
@@ -87,6 +114,8 @@
       evento.preventDefault();
 
       if (!form.reportValidity()) return;
+
+      animarPulso(boton);
 
       if (!endpoint) {
         mostrarEstado(
